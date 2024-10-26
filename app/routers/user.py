@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from backand.db import Base
+from backend.db import Base
 from sqlalchemy.orm import Session
 from typing import Annotated
 from models import *
 from schemas import CreateUser, UpdateUser
 from sqlalchemy import insert, select, update, delete
 from slugify import slugify
-from backand.db_depends import get_db
+from backend.db_bepends import get_db
 
 router = APIRouter(prefix="/user", tags=["user"])
 
@@ -64,28 +64,6 @@ async def update_user(db: Annotated[Session, Depends(get_db)], user_id: int, upd
         'status_code': status.HTTP_202_OK,
         'transaction': 'User update is successful!'
     }
-
-
-
-# async def update_user(db: Annotated[Session, Depends(get_db)], update_user: UpdateUser, user_id: int):
-#     user = db.scalars(select(User).where(user_id == User.id))
-#     if user is None:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail='User was not found'
-#         )
-#
-#     db.execute(update(User).where(User.id).values(
-#         firstname=update_user.firstname,
-#         lastname=update_user.lastname,
-#         age=update_user.age))
-#
-#     db.commit
-#     return {
-#         'status_code': status.HTTP_200_OK,
-#         'transaction': 'User update is successful!'
-#     }
-#
 
 #----------------------------------------
 

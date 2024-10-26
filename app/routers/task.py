@@ -25,4 +25,3 @@ async def update_task():
 @router.delete("/delete")
 async def delete_task():
     pass
-
